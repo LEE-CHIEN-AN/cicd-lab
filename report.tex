@@ -111,159 +111,226 @@ My GitHub Repository: \url{https://github.com/LEE-CHIEN-AN/cicd-lab}
 
 \section*{CI Pipeline 說明}
 
-\texttt{.github/workflows/ci\_b12705041.yaml} 如下
-
+本次作業為 \texttt{cicd-lab} 專案建立一條完整的 CI Pipeline，
+檔案路徑為 \path{.github/workflows/ci_b12705041.yaml}，完整內容如下：
 \begin{lstlisting}[language=YAML]
 name: CI b12705041
 
 on:
-    push:
-        branches:
-            - "**" # 所有 branch push 都觸發
-    pull_request:  #  PR 也觸發，保護 main branch
+  push:
+    branches:
+      - '**'
+  pull_request:
 
 permissions:
-    contents: read # 讀取 repo 內容，actions/checkout 需要這個權限
-    checks: write  # dorny/test-reporter 需要這個才能寫入 GitHub Checks 系統，才能讓測試通過/失敗的圖示出現在 Actions 頁面
+  contents: read
+  checks: write
 
 jobs:
-    ci:
-        runs-on: ubuntu-latest # GitHub 幫你開一台全新的 Ubuntu 虛擬機來跑這些步驟。
+  ci:
+    runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout # 把你 repo 的程式碼下載進 VM。幾乎每個 workflow 的第一步都是這個，沒有 code 後面什麼都跑不了。
-              uses: actions/checkout@v5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-            - name: Setup Node.js
-              uses: actions/setup-node@v5
-              with:
-                  node-version: "22"
-                  cache: npm  #優化：把 node_modules 的下載結果快取起來。下次跑 CI 時如果 package-lock.json 沒變，就直接用快取
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
 
-            - name: Install dependencies
-              run: npm ci
+      - name: Install dependencies
+        run: npm ci
 
-            - name: TypeScript typecheck
-              run: npm run typecheck #實際執行的是 tsc --noEmit，意思是「用 TypeScript 編譯器檢查型別，但不要輸出任何檔案」。
+      - name: TypeScript typecheck
+        run: npm run typecheck
 
-            - name: Prettier check #實際執行 prettier --check .，檢查所有程式碼的格式是否符合 .prettierrc 的規定（縮排、引號、分號等）
-              run: npm run format:check #這個步驟只「檢查」，不會自動修正。格式不對就直接 fail。
+      - name: Prettier check
+        run: npm run format:check
 
-            - name: Lint
-              run: npm run lint
+      - name: Lint
+        run: npm run lint
 
-            - name: Run tests #--reporter=default：印在 log 裡，讓你在 Actions 頁面的 log 看到測試結果，--reporter=junit：輸出 vitest-junit.xml，這是業界標準的 XML 格式，給下一步的 test-reporter 用
-              run: |
-                  mkdir -p reports
-                  npm test -- --reporter=default --reporter=junit --outputFile.junit=reports/vitest-junit.xml
+      - name: Run tests
+        run: |
+          mkdir -p reports
+          npm test -- --reporter=default --reporter=junit \
+            --outputFile.junit=reports/vitest-junit.xml
 
-            - name: Publish test results
-              uses: dorny/test-reporter@v1
-              if: always() # 不管測試成功或失敗都要執行這個步驟，這樣才能在 GitHub Actions 頁面看到測試結果
-              with:
-                  name: Vitest Test Results
-                  path: reports/vitest-junit.xml
-                  reporter: java-junit
-
+      - name: Publish test results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Vitest Test Results
+          path: reports/vitest-junit.xml
+          reporter: java-junit
 \end{lstlisting}
 
-CI Pipeline 的流程如下：
-push 觸發
-    ↓
-開一台乾淨的 Ubuntu VM
-    ↓
-下載 code（Checkout）
-    ↓
-安裝 Node 22（Setup Node.js）
-    ↓
-安裝套件（npm ci）
-    ↓
-型別檢查（typecheck）→ 失敗就停
-    ↓
-格式檢查（prettier check）→ 失敗就停
-    ↓
-跑測試（vitest）→ 失敗會繼續跑下一步
-    ↓
-發布測試報告（dorny/test-reporter）← if: always() 確保一定跑
-    ↓
-VM 刪除
+\subsection*{Pipeline 設計說明}
+
+\textbf{觸發條件（\texttt{on}）}
+
+Pipeline 設定在兩種情境下自動執行：
+\begin{itemize}
+    \item \texttt{push}（任意 branch）：開發者每次推送程式碼，立即觸發品質檢查，確保問題在早期被發現。
+    \item \texttt{pull\_request}：開 PR 時自動觸發，在合併進 \texttt{main} 之前強制通過所有檢查，保護主線品質。
+\end{itemize}
+
+\textbf{權限設定（\texttt{permissions}）}
+
+\begin{itemize}
+    \item \texttt{contents: read}：允許 Workflow 讀取 Repository 內容，\texttt{actions/checkout} 需要此權限。
+    \item \texttt{checks: write}：允許 \texttt{dorny/test-reporter} 將測試結果寫入 GitHub Checks 系統，使測試報告直接顯示於 Actions 頁面，而不只是可下載的 Artifact。
+\end{itemize}
+
+\textbf{執行環境（\texttt{runs-on}）}
+
+使用 \texttt{ubuntu-latest}，即 GitHub 提供的全新 Ubuntu 虛擬機。每次觸發都從乾淨環境開始，避免前次執行的殘留干擾，執行結束後自動刪除。
+
+\textbf{步驟說明（\texttt{steps}）}
+
+Pipeline 共分為七個步驟，設計原則為「越快速的靜態檢查越優先，越耗時的動態測試越靠後」，一旦前面的步驟失敗即立即中止，避免浪費運算資源：
+
+\begin{enumerate}
+    \item \textbf{Checkout}：使用 \texttt{actions/checkout@v5} 將 Repository 程式碼下載至 Runner VM，是幾乎所有 Workflow 的第一步。
+
+    \item \textbf{Setup Node.js}：使用 \texttt{actions/setup-node@v5} 安裝指定版本 Node.js（v22）。啟用 \texttt{cache: npm}，將 \texttt{node\_modules} 快取，若 \texttt{package-lock.json} 未變動則直接使用快取，可省去 15--30 秒的下載時間。
+
+    \item \textbf{Install dependencies}：執行 \texttt{npm ci}，嚴格依照 \texttt{package-lock.json} 安裝套件，確保 CI 環境與本機環境版本完全一致，避免「本機可以跑但 CI 失敗」的問題。
+
+    \item \textbf{TypeScript typecheck}：執行 \texttt{npm run typecheck}，實際呼叫 \texttt{tsc --noEmit}，以 TypeScript 編譯器進行純型別檢查而不輸出檔案。TypeScript 型別錯誤在 Runtime 不會立即顯現，CI 在合併前提早捕捉，降低生產環境出現隱性 Bug 的風險。
+
+    \item \textbf{Prettier check}：執行 \texttt{npm run format:check}，實際呼叫 \texttt{prettier --check .}，依照 \texttt{.prettierrc} 規定檢查所有檔案的格式（縮排、引號、分號等）。此步驟只做檢查，不自動修正；格式不符即直接失敗，強制團隊維持統一的程式碼風格。
+
+    \item \textbf{Lint}：執行 \texttt{npm run lint}，使用 ESLint 搭配 \texttt{@typescript-eslint} 插件進行靜態程式碼分析，偵測潛在的程式邏輯錯誤與不良實踐。\texttt{actions/setup-node} 會自動載入 ESLint 的 Problem Matcher，讓 ESLint 錯誤直接標注在 PR 的程式碼行數上。
+
+    \item \textbf{Run tests}：執行 \texttt{npm test}，以 Vitest 框架運行所有測試。同時使用兩種 Reporter：\texttt{default} 將結果輸出至 Log，\texttt{junit} 將結果輸出為 JUnit XML 格式（\texttt{reports/vitest-junit.xml}），供下一步解析。
+
+    \item \textbf{Publish test results}：使用 \texttt{dorny/test-reporter@v1} 讀取 JUnit XML，將測試結果以圖形化方式呈現於 GitHub Actions 頁面的 Checks 區塊，可直接看到每個測試案例的通過或失敗狀態。設定 \texttt{if: always()} 確保即使測試步驟失敗，報告仍會被發布，讓開發者能立即得知是哪個測試壞掉。
+\end{enumerate}
 
 \section*{CI 執行結果截圖}
-    - 至少一張成功執行的截圖
-    - 附上 GitHub Actions 頁面的結果畫面
 
+以下為 CI Pipeline 成功執行的截圖。最新一次的 \path{.github/workflows/ci_b12705041.yaml} 執行所有步驟均通過，Checks 區塊顯示 Vitest 測試結果，2 個測試案例全數通過。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{image5.png}
+    \caption{GitHub Actions 頁面顯示最新一次的測試所有 Steps 成功通過}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{image6.png}
+    \caption{Checks 頁面顯示 Vitest Test Results 詳細測試報告}
+\end{figure}
 
 \section*{失敗案例說明}
-    - 請故意製造一個錯誤，例如：
-        - TypeScript 型別錯誤
-        - Prettier 格式錯誤
-        - 測試失敗
-    - 附上 pipeline failed 的截圖, 說明錯誤原因與修正方式
 
-    根本原因：Prettier check 失敗
+在開發過程中共遭遇兩個導致 Pipeline 失敗的問題，以下分別說明其原因與修復方式。
 
-\begin{figure}
+\subsection*{案例一：Prettier 格式檢查失敗}
+
+\textbf{錯誤原因}
+
+新增 Workflow 檔案後，這些 YAML 檔案的縮排與格式未符合 \texttt{.prettierrc} 的規定，CI 執行至 \texttt{Prettier check} 步驟時立即失敗：
+
+\begin{lstlisting}
+[warn] .github/workflows/ci_b12705041.yaml
+[warn] .github/workflows/01_hello.yaml
+[warn] docker-compose.yml
+Code style issues found in 7 files. -> exit code 1
+\end{lstlisting}
+
+\textbf{連鎖反應}
+
+由於 Pipeline 在 Prettier 步驟中斷，後續的 \texttt{Lint}、\texttt{Run tests} 步驟均未執行，導致測試報告檔案（\texttt{reports/vitest-junit.xml}）從未被產生。\texttt{dorny/test-reporter} 雖因 \texttt{if: always()} 仍會執行，但找不到報告檔案，因而出現「No test report files were found」的第二個錯誤。此錯誤是 Prettier 失敗的連鎖結果，而非獨立問題。
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{image1.png}
-    \caption{Prettier 格式檢查失敗的截圖}
+    \caption{Prettier 格式檢查失敗，Pipeline 中止}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{image2.png}
-    \caption{Prettier 格式檢查失敗的截圖}
+    \caption{因測試未執行，test-reporter 找不到報告檔案}
 \end{figure}
 
-\texttt{[warn] .github/workflows/ci_b12705041.yaml}
-\texttt{[warn] .github/workflows/01_hello.yaml}
-\texttt{[warn] docker-compose.yml ...}
-\texttt{Code style issues found in 7 files. → exit code 1}
-\texttt{Prettier 發現這些檔案的格式不符合 .prettierrc 規定（縮排、引號等），pipeline 在這步就停了。}
+\textbf{修復方式}
 
-\texttt{連鎖反應}
+執行 \texttt{npm run format}，讓 Prettier 自動修正所有格式問題後重新提交：
 
-prettier check ❌ 失敗停止
-    ↓
-lint 沒跑
-test 沒跑          ← reports/vitest-junit.xml 從來沒被產生
-    ↓
-dorny/test-reporter (if: always()) 雖然還是跑
-    ↓
-找不到 reports/vitest-junit.xml → "No test report files were found" ❌
-所以「No test report」不是獨立的問題，是 Prettier 失敗的連鎖結果。
-
-修復方式
-讓 Prettier 自動幫你把所有檔案格式化：
-
-
+\begin{lstlisting}[language=Bash]
 npm run format
 git add -A
 git commit -m "style: format all files with prettier"
 git push origin main
-npm run format 執行 prettier --write .，自動修正所有格式問題。
+\end{lstlisting}
 
-推上去之後 CI 應該就能全部通過。
-
-
-\begin{figure}
+\begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{image3.png}
-    \caption{Prettier 格式檢查成功的截圖}
+    \includegraphics[width=0.7\textwidth]{image3.png}
+    \caption{執行 npm run format}
 \end{figure}
 
-\begin{figure}
+\subsection*{案例二：ESLint 型別感知分析失敗}
+
+\textbf{錯誤原因}
+
+\texttt{.eslintrc.cjs} 設定 \texttt{parserOptions.project: './tsconfig.json'}，要求 ESLint 使用 TypeScript 的型別資訊進行深度分析。然而 \texttt{tsconfig.json} 的 \texttt{include} 欄位只包含 \texttt{src/**/*.ts}，測試檔案 \texttt{test/app.test.ts} 與設定檔 \texttt{vitest.config.ts} 均不在其中，導致 ESLint 無法解析這些檔案並報錯：
+
+\begin{lstlisting}
+Parsing error: "parserOptions.project" has been set for
+@typescript-eslint/parser.
+The file was not found in any of the provided project(s):
+test/app.test.ts
+\end{lstlisting}
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{image4.png}
-    \caption{lint 失敗的截圖}
+    \caption{ESLint 因 tsconfig 設定不完整而失敗}
 \end{figure}
-根本原因：
-tsconfig.json 第 2 行："include": ["src/**/*.ts"] — 只包含 src/ 的檔案
-ESLint 用 parserOptions.project: './tsconfig.json' 做型別感知分析
-所以 test/app.test.ts 和 vitest.config.ts 不在 tsconfig 裡，ESLint 就報錯
-最乾淨的修法：建一個 tsconfig.eslint.json 專門給 ESLint 用，包含所有要 lint 的檔案，不動原本的 tsconfig.json（那個是給 build 用的）。
 
-為什麼這樣修？
-tsconfig.json	給 npm run build 用，只需要 src/，不需要 test 檔案進入 production build
-tsconfig.eslint.json	給 ESLint 用，extends 原本的設定，但額外包含 test/ 和 vitest.config.ts
-這是 @typescript-eslint 官方推薦的標準做法，把「build 用的 tsconfig」和「lint 用的 tsconfig」分開。
+\textbf{修復方式}
+
+新增 \texttt{tsconfig.eslint.json}，繼承原本的 \texttt{tsconfig.json} 設定，但額外涵蓋測試檔案與設定檔，並將 \texttt{.eslintrc.cjs} 的 \texttt{project} 指向新檔案：
+
+\begin{lstlisting}[language=YAML]
+// tsconfig.eslint.json
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*.ts", "test/**/*.ts", "vitest.config.ts"]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=JavaScript]
+// .eslintrc.cjs (修改前後對比)
+// 修改前: project: './tsconfig.json'
+// 修改後: project: './tsconfig.eslint.json'
+\end{lstlisting}
+
+此做法為 \texttt{@typescript-eslint} 官方推薦的標準模式，將「Build 用的 tsconfig」與「Lint 用的 tsconfig」分離，各司其職：
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\textwidth}{lX}
+        \toprule
+        \textbf{檔案} & \textbf{用途} \\
+        \midrule
+        \texttt{tsconfig.json} & 供 \texttt{npm run build} 使用，只需包含 \texttt{src/}，測試檔案不應進入 Production Build \\
+        \texttt{tsconfig.eslint.json} & 供 ESLint 使用，在原設定基礎上額外包含 \texttt{test/} 與 \texttt{vitest.config.ts} \\
+        \bottomrule
+    \end{tabularx}
+    \caption{tsconfig 分離策略說明}
+\end{table}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{image6.png}
+    \caption{修復 ESLint 設定後所有步驟全數通過}
+\end{figure}
+
 \end{document}

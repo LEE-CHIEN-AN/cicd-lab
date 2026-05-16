@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.3) (preloaded format=xelatex 2025.4.4)  16 MAY 2026 21:08
+This is XeTeX, Version 3.141592653-2.6-0.999997 (MiKTeX 25.3) (preloaded format=xelatex 2025.4.4)  16 MAY 2026 21:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -756,530 +756,68 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 [1
 
 ]
+LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `TU/lmtt/b/n' tried instead on input line 172.
+
 
 [2]
+Overfull \hbox (4.50458pt too wide) in paragraph at lines 202--203
+[]\TU/lmr/bx/n/10.95 TypeScript typecheck\TU/MicrosoftJhengHei(0)/m/n/10.95 ：|  執 行 \TU/lmtt/m/n/10.95 npm run typecheck\TU/MicrosoftJhengHei(0)/m/n/10.95 ，|  實 際 呼 叫 \TU/lmtt/m/n/10.95 tsc --noEmit\TU/MicrosoftJhengHei(0)/m/n/10.95 ，|  以 \TU/lmr/m/n/10.95 Type-
+ []
+
+
+Overfull \hbox (52.04117pt too wide) in paragraph at lines 208--209
+\TU/lmtt/m/n/10.95 default \TU/MicrosoftJhengHei(0)/m/n/10.95 將 結 果 輸 出 至 \TU/lmr/m/n/10.95 Log\TU/MicrosoftJhengHei(0)/m/n/10.95 ，| \TU/lmtt/m/n/10.95 junit \TU/MicrosoftJhengHei(0)/m/n/10.95 將 結 果 輸 出 為 \TU/lmr/m/n/10.95 JUnit XML \TU/MicrosoftJhengHei(0)/m/n/10.95 格 式  |（\TU/lmtt/m/n/10.95 reports/vitest-junit.xml\TU/MicrosoftJhengHei(0)/m/n/10.95 ） ，|
+ []
+
+File: image5.png Graphic file (type bmp)
+<image5.png>
+
+
+[3]
+File: image6.png Graphic file (type bmp)
+<image6.png>
+
+
+[4]
 File: image1.png Graphic file (type bmp)
 <image1.png>
 File: image2.png Graphic file (type bmp)
 <image2.png>
 
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:217: Missing $ inserted.
-<inserted text> 
-                $
-l.217 ...arn] .github/workflows/ci_b12705041.yaml}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
 
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:217: Extra }, or forgotten $.
-<recently read> \egroup 
-                        
-l.217 ...arn] .github/workflows/ci_b12705041.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Missing $ inserted.
-<inserted text> 
-                $
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
-                                                  }
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
-                                                  
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\text@ ...e {\textdef@ \displaystyle \f@size {#1}}
-                                                  {\textdef@ \textstyle \f@s...
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Missing $ inserted.
-<inserted text> 
-                $
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
-                                                  }
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
-                                                  
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\text@ ...xtstyle \f@size {\firstchoice@false #1}}
-                                                  {\textdef@ \textstyle \sf@...
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Missing $ inserted.
-<inserted text> 
-                $
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
-                                                  }
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
-                                                  
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\text@ ...tstyle \sf@size {\firstchoice@false #1}}
-                                                  {\textdef@ \textstyle \ssf...
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Missing $ inserted.
-<inserted text> 
-                $
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\textdef@ ...th {#1}\let \f@size #2\selectfont #3}
-                                                  }
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\textdef@ ...h {#1}\let \f@size #2\selectfont #3}}
-                                                  
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\text@ ...style \ssf@size {\firstchoice@false #1}}
-                                                  \check@mathfonts }
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:218: Extra }, or forgotten $.
-\text@ ...firstchoice@false #1}}\check@mathfonts }
-                                                  
-l.218 ...t{[warn] .github/workflows/01_hello.yaml}
-                                                  
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:222: Missing $ inserted.
-<inserted text> 
-                $
-l.222 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-Missing character: There is no ❌ in font [lmmono8-regular]:!
-Missing character: There is no ❌ in font [lmmono8-regular]:!
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:249: Undefined control sequence.
-\@float@Hx ...ltovf \fi \global \setbox \@currbox 
-                                                  \color@vbox \normalcolor \...
-l.249     \centering
-                    
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:249: Missing number, treated as zero.
-<to be read again> 
-                   \vbox 
-l.249     \centering
-                    
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
-
+[5]
 File: image3.png Graphic file (type bmp)
 <image3.png>
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:255: Undefined control sequence.
-\@float@Hx ...ltovf \fi \global \setbox \@currbox 
-                                                  \color@vbox \normalcolor \...
-l.255     \centering
-                    
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
 
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:255: Missing number, treated as zero.
-<to be read again> 
-                   \vbox 
-l.255     \centering
-                    
-A number should have been here; I inserted `0'.
-(If you can't figure out why I needed to see a number,
-look up `weird error' in the index to The TeXbook.)
 
+[6]
 File: image4.png Graphic file (type bmp)
 <image4.png>
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Improper \prevdepth.
-\newpage ...everypar {}\fi \par \ifdim \prevdepth 
-                                                  >\z@ \vskip -\ifdim \prevd...
-l.269 \end{document}
-                    
-You can refer to \spacefactor only in horizontal mode;
-you can refer to \prevdepth only in vertical mode; and
-neither of these is meaningful inside \write. So
-I'm forgetting what you said and using zero instead.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing $ inserted.
-<inserted text> 
-                $
-l.269 \end{document}
-                    
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing $ inserted.
-<inserted text> 
-                $
-l.269 \end{document}
-                    
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing $ inserted.
-<inserted text> 
-                $
-l.269 \end{document}
-                    
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing $ inserted.
-<inserted text> 
-                $
-l.269 \end{document}
-                    
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing { inserted.
-<to be read again> 
-                   $
-l.269 \end{document}
-                    
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing { inserted.
-<to be read again> 
-                   $
-l.269 \end{document}
-                    
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing { inserted.
-<to be read again> 
-                   $
-l.269 \end{document}
-                    
-A left brace was mandatory here, so I've put one in.
-You might want to delete and/or insert some corrections
-so that I will find a matching right brace soon.
-(If you're confused by all this, try typing `I}' now.)
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
-
-c:/Users/a0903/Documents/slides/雲原生/cicd-lab/report.tex:269: Missing } inserted.
-<inserted text> 
-                }
-l.269 \end{document}
-                    
-I've inserted something that you may have forgotten.
-(See the <inserted text> above.)
-With luck, this will get me unwedged. But if you
-really didn't forget anything, try typing `2' now; then
-my insertion and my current dilemma will both disappear.
 
 
+[7]
+Underfull \hbox (badness 1661) in paragraph at lines 326--326
+[]|\TU/MicrosoftJhengHei(0)/m/n/10.95 供 \TU/lmr/m/n/10.95 ESLint \TU/MicrosoftJhengHei(0)/m/n/10.95 使 用，|  在 原 設 定 基 礎 上 額 外 包 含 \TU/lmtt/m/n/10.95 test/ \TU/MicrosoftJhengHei(0)/m/n/10.95 與
+ []
 
-[3]
+File: image6.png Graphic file (type bmp)
+<image6.png>
 
-[4] (report.aux)
+
+[8] (report.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2022/08/05>
  ***********
- )
-(\end occurred inside a group at level 1)
-
-### simple group (level 1) entered at line 217 ({)
-### bottom level 
+ ) 
 Here is how much of TeX's memory you used:
- 29449 strings out of 408640
- 736166 string characters out of 5744799
- 1390600 words of memory out of 5000000
- 52118 multiletter control sequences out of 15000+600000
- 566417 words of font info for 88 fonts, out of 8000000 for 9000
+ 29272 strings out of 408640
+ 730257 string characters out of 5744799
+ 1249600 words of memory out of 5000000
+ 51939 multiletter control sequences out of 15000+600000
+ 565780 words of font info for 86 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 98i,17n,105p,1645b,1629s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 98i,10n,105p,1645b,1627s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on report.xdv (4 pages, 46100 bytes).
+Output written on report.xdv (8 pages, 85056 bytes).
