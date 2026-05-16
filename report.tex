@@ -1,0 +1,247 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{fullpage}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{forest}
+% 為了讓表格緊密
+\usepackage{float}
+% 為了首行空格
+%\usepackage{indentfirst}
+% % 為表格添加 footnote
+% \usepackage{tablefootnote}
+
+\usepackage{tabularx}
+
+% 全域格式設定（放在 preamble）
+\lstset{
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  stepnumber=1,
+  numbersep=5pt,
+  frame=single,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  showspaces=false,        % ← 明確關掉，確保空格不顯示為 ␣
+  showstringspaces=false   % ← 字串內的空格也不顯示為 ␣
+}
+
+% 語言定義只放語言相關設定
+\lstdefinelanguage{JavaScript}{
+  keywords={break, case, ...},
+  morekeywords=[2]{class, const, ...},
+  sensitive=true,
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinelanguage{Bash}{
+  keywords={cd, npm, npx, ...},
+  sensitive=true,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+%yaml
+\lstdefinelanguage{YAML}{
+  keywords={name, on, jobs, steps, uses, with, run, ...},
+  sensitive=true,
+  morestring=[b]',
+  morestring=[b]"
+}
+
+% for Chinese
+\usepackage{fontspec} % 加這個就可以設定字體
+\usepackage[BoldFont, SlantFont]{xeCJK} % 讓中英文字體分開設置
+\setCJKmainfont{Microsoft JhengHei}  % 設定中文為系統上的字型，而英文不去更動，使用原TeX字型
+\setCJKmonofont{Microsoft JhengHei} % 定義 CJK 等寬字型，避免 xeCJK 無法識別 \CJKttdefault
+\renewcommand{\baselinestretch}{1.3}
+
+\parskip=5pt
+\parindent=24pt
+\newtheorem{lemma}{Lemma}
+\newtheorem{ques}{Question}
+\newtheorem{prop}{Proposition}
+\newtheorem{defn}{Definition}
+\newtheorem{rmk}{Remark}
+\newtheorem{note}{Note}
+\newtheorem{eg}{Example}
+\newtheorem{aspt}{Assumption}
+
+\definecolor{emphOrange}{RGB}{247, 80, 0}
+\definecolor{stringGray}{RGB}{109, 109, 109}
+\definecolor{commentGreen}{RGB}{0, 96, 0}
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+
+
+% "摘要", "表", "圖", "參考文獻"
+\renewcommand{\abstractname}{\bf 摘要}
+\renewcommand{\tablename}{表}
+\renewcommand{\figurename}{圖}
+\renewcommand{\refname}{\bf 參考文獻}
+
+% -----
+% 我在這裡加入了 tikz 和 forest 宏包 (基於 tikz) 來繪製 B+ Tree
+\usepackage{tikz} % <<< --- 新增：明確載入 tikz
+\usepackage{forest}
+\usetikzlibrary{arrows.meta, chains}
+% -----
+
+
+\begin{document}
+
+\title{雲原生 HW4 - CI/CD Pipeline}
+\author{資管三 B12705041 李倢安}
+\date{\today}
+\maketitle
+%\fontsize{20}{20pt}\selectfont
+My GitHub Repository: \url{https://github.com/LEE-CHIEN-AN/cicd-lab}
+
+\section*{CI Pipeline 說明}
+
+\texttt{.github/workflows/ci\_b12705041.yaml} 如下
+
+\begin{lstlisting}[language=YAML]
+name: CI b12705041
+
+on:
+    push:
+        branches:
+            - "**" # 所有 branch push 都觸發
+    pull_request:  #  PR 也觸發，保護 main branch
+
+permissions:
+    contents: read # 讀取 repo 內容，actions/checkout 需要這個權限
+    checks: write  # dorny/test-reporter 需要這個才能寫入 GitHub Checks 系統，才能讓測試通過/失敗的圖示出現在 Actions 頁面
+
+jobs:
+    ci:
+        runs-on: ubuntu-latest # GitHub 幫你開一台全新的 Ubuntu 虛擬機來跑這些步驟。
+
+        steps:
+            - name: Checkout # 把你 repo 的程式碼下載進 VM。幾乎每個 workflow 的第一步都是這個，沒有 code 後面什麼都跑不了。
+              uses: actions/checkout@v5
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: "22"
+                  cache: npm  #優化：把 node_modules 的下載結果快取起來。下次跑 CI 時如果 package-lock.json 沒變，就直接用快取
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: TypeScript typecheck
+              run: npm run typecheck #實際執行的是 tsc --noEmit，意思是「用 TypeScript 編譯器檢查型別，但不要輸出任何檔案」。
+
+            - name: Prettier check #實際執行 prettier --check .，檢查所有程式碼的格式是否符合 .prettierrc 的規定（縮排、引號、分號等）
+              run: npm run format:check #這個步驟只「檢查」，不會自動修正。格式不對就直接 fail。
+
+            - name: Lint
+              run: npm run lint
+
+            - name: Run tests #--reporter=default：印在 log 裡，讓你在 Actions 頁面的 log 看到測試結果，--reporter=junit：輸出 vitest-junit.xml，這是業界標準的 XML 格式，給下一步的 test-reporter 用
+              run: |
+                  mkdir -p reports
+                  npm test -- --reporter=default --reporter=junit --outputFile.junit=reports/vitest-junit.xml
+
+            - name: Publish test results
+              uses: dorny/test-reporter@v1
+              if: always() # 不管測試成功或失敗都要執行這個步驟，這樣才能在 GitHub Actions 頁面看到測試結果
+              with:
+                  name: Vitest Test Results
+                  path: reports/vitest-junit.xml
+                  reporter: java-junit
+
+\end{lstlisting}
+
+CI Pipeline 的流程如下：
+push 觸發
+    ↓
+開一台乾淨的 Ubuntu VM
+    ↓
+下載 code（Checkout）
+    ↓
+安裝 Node 22（Setup Node.js）
+    ↓
+安裝套件（npm ci）
+    ↓
+型別檢查（typecheck）→ 失敗就停
+    ↓
+格式檢查（prettier check）→ 失敗就停
+    ↓
+跑測試（vitest）→ 失敗會繼續跑下一步
+    ↓
+發布測試報告（dorny/test-reporter）← if: always() 確保一定跑
+    ↓
+VM 刪除
+
+\section*{CI 執行結果截圖}
+    - 至少一張成功執行的截圖
+    - 附上 GitHub Actions 頁面的結果畫面
+
+
+\section*{失敗案例說明}
+    - 請故意製造一個錯誤，例如：
+        - TypeScript 型別錯誤
+        - Prettier 格式錯誤
+        - 測試失敗
+    - 附上 pipeline failed 的截圖, 說明錯誤原因與修正方式
+
+    根本原因：Prettier check 失敗
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{image1.png}
+    \caption{Prettier 格式檢查失敗的截圖}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{image2.png}
+    \caption{Prettier 格式檢查失敗的截圖}
+\end{figure}
+
+[warn] .github/workflows/ci_b12705041.yaml
+[warn] .github/workflows/01_hello.yaml
+[warn] docker-compose.yml ...
+Code style issues found in 7 files. → exit code 1
+Prettier 發現這些檔案的格式不符合 .prettierrc 規定（縮排、引號等），pipeline 在這步就停了。
+
+連鎖反應
+
+prettier check ❌ 失敗停止
+    ↓
+lint 沒跑
+test 沒跑          ← reports/vitest-junit.xml 從來沒被產生
+    ↓
+dorny/test-reporter (if: always()) 雖然還是跑
+    ↓
+找不到 reports/vitest-junit.xml → "No test report files were found" ❌
+所以「No test report」不是獨立的問題，是 Prettier 失敗的連鎖結果。
+
+修復方式
+讓 Prettier 自動幫你把所有檔案格式化：
+
+
+npm run format
+git add -A
+git commit -m "style: format all files with prettier"
+git push origin main
+npm run format 執行 prettier --write .，自動修正所有格式問題。
+
+推上去之後 CI 應該就能全部通過。
+
+\end{document}
