@@ -214,13 +214,13 @@ VM 刪除
     \caption{Prettier 格式檢查失敗的截圖}
 \end{figure}
 
-[warn] .github/workflows/ci_b12705041.yaml
-[warn] .github/workflows/01_hello.yaml
-[warn] docker-compose.yml ...
-Code style issues found in 7 files. → exit code 1
-Prettier 發現這些檔案的格式不符合 .prettierrc 規定（縮排、引號等），pipeline 在這步就停了。
+\texttt{[warn] .github/workflows/ci_b12705041.yaml}
+\texttt{[warn] .github/workflows/01_hello.yaml}
+\texttt{[warn] docker-compose.yml ...}
+\texttt{Code style issues found in 7 files. → exit code 1}
+\texttt{Prettier 發現這些檔案的格式不符合 .prettierrc 規定（縮排、引號等），pipeline 在這步就停了。}
 
-連鎖反應
+\texttt{連鎖反應}
 
 prettier check ❌ 失敗停止
     ↓
@@ -244,4 +244,26 @@ npm run format 執行 prettier --write .，自動修正所有格式問題。
 
 推上去之後 CI 應該就能全部通過。
 
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{image3.png}
+    \caption{Prettier 格式檢查成功的截圖}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\textwidth]{image4.png}
+    \caption{lint 失敗的截圖}
+\end{figure}
+根本原因：
+tsconfig.json 第 2 行："include": ["src/**/*.ts"] — 只包含 src/ 的檔案
+ESLint 用 parserOptions.project: './tsconfig.json' 做型別感知分析
+所以 test/app.test.ts 和 vitest.config.ts 不在 tsconfig 裡，ESLint 就報錯
+最乾淨的修法：建一個 tsconfig.eslint.json 專門給 ESLint 用，包含所有要 lint 的檔案，不動原本的 tsconfig.json（那個是給 build 用的）。
+
+為什麼這樣修？
+tsconfig.json	給 npm run build 用，只需要 src/，不需要 test 檔案進入 production build
+tsconfig.eslint.json	給 ESLint 用，extends 原本的設定，但額外包含 test/ 和 vitest.config.ts
+這是 @typescript-eslint 官方推薦的標準做法，把「build 用的 tsconfig」和「lint 用的 tsconfig」分開。
 \end{document}

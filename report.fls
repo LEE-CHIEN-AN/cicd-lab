@@ -254,6 +254,9 @@ INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer
 INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarychains.code.tex
 INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarypositioning.code.tex
 INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\tex\generic\pgf\frontendlayer\tikz\libraries\tikzlibrarypositioning.code.tex
+INPUT .\report.aux
+INPUT .\report.aux
+INPUT report.aux
 OUTPUT report.aux
 INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi12.tfm
 INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmmi8.tfm
@@ -292,4 +295,13 @@ INPUT .\image1.png
 INPUT .\image2.png
 INPUT .\image2.png
 INPUT .\image2.png
+INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
+INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam5.tfm
+INPUT C:\Users\a0903\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msbm5.tfm
+INPUT .\image3.png
+INPUT .\image3.png
+INPUT .\image3.png
+INPUT .\image4.png
+INPUT .\image4.png
+INPUT .\image4.png
 INPUT report.aux
