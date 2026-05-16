@@ -1,0 +1,47 @@
+name: CI b12705041
+
+on:
+    push:
+        branches:
+            - "**" # 所有 branch push 都觸發
+    pull_request:  #  PR 也觸發，保護 main branch
+
+permissions:
+    contents: read # 讀取 repo 內容，actions/checkout 需要這個權限
+    checks: write  # dorny/test-reporter 需要這個才能寫入 GitHub Checks 系統，才能讓測試通過/失敗的圖示出現在 Actions 頁面
+
+jobs:
+    ci:
+        runs-on: ubuntu-latest # GitHub 幫你開一台全新的 Ubuntu 虛擬機來跑這些步驟。
+
+        steps:
+            - name: Checkout # 把你 repo 的程式碼下載進 VM。幾乎每個 workflow 的第一步都是這個，沒有 code 後面什麼都跑不了。
+              uses: actions/checkout@v5
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v5
+              with:
+                  node-version: "22"
+                  cache: npm  #優化：把 node_modules 的下載結果快取起來。下次跑 CI 時如果 package-lock.json 沒變，就直接用快取
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: TypeScript typecheck
+              run: npm run typecheck #實際執行的是 tsc --noEmit，意思是「用 TypeScript 編譯器檢查型別，但不要輸出任何檔案」。
+
+            - name: Prettier check #實際執行 prettier --check .，檢查所有程式碼的格式是否符合 .prettierrc 的規定（縮排、引號、分號等）
+              run: npm run format:check #這個步驟只「檢查」，不會自動修正。格式不對就直接 fail。
+
+            - name: Run tests #--reporter=default：印在 log 裡，讓你在 Actions 頁面的 log 看到測試結果，--reporter=junit：輸出 vitest-junit.xml，這是業界標準的 XML 格式，給下一步的 test-reporter 用
+              run: |
+                  mkdir -p reports
+                  npm test -- --reporter=default --reporter=junit --outputFile.junit=reports/vitest-junit.xml
+
+            - name: Publish test results
+              uses: dorny/test-reporter@v1
+              if: always() # 不管測試成功或失敗都要執行這個步驟，這樣才能在 GitHub Actions 頁面看到測試結果
+              with:
+                  name: Vitest Test Results
+                  path: reports/vitest-junit.xml
+                  reporter: java-junit
