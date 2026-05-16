@@ -34,6 +34,7 @@ act --version
 ```bash
 npm ci
 ```
+npm ci 和 npm install 的差別：ci 會嚴格依照 package-lock.json 安裝，確保每個環境版本一致，這在 CI 環境中是標準做法。
 
 啟動服務：
 
@@ -41,9 +42,10 @@ npm ci
 npm run build
 npm run start
 ```
+build 會把 TypeScript 編譯成 JavaScript（輸出到 dist/），start 再執行編譯後的檔案
 
 驗證服務：
-
+開另一個終端機視窗，執行
 ```bash
 curl http://localhost:3000/
 curl http://localhost:3000/health
