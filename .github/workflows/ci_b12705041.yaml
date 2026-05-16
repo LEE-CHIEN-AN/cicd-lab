@@ -33,6 +33,9 @@ jobs:
             - name: Prettier check #實際執行 prettier --check .，檢查所有程式碼的格式是否符合 .prettierrc 的規定（縮排、引號、分號等）
               run: npm run format:check #這個步驟只「檢查」，不會自動修正。格式不對就直接 fail。
 
+            - name: Lint
+              run: npm run lint
+
             - name: Run tests #--reporter=default：印在 log 裡，讓你在 Actions 頁面的 log 看到測試結果，--reporter=junit：輸出 vitest-junit.xml，這是業界標準的 XML 格式，給下一步的 test-reporter 用
               run: |
                   mkdir -p reports
